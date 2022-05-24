@@ -1,4 +1,4 @@
-package com.javachallenge.fileapi.business.validation;
+package com.javachallenge.fileapi.validation;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -6,8 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Set;
 import java.util.function.BiFunction;
 
-import static com.javachallenge.fileapi.business.validation.FileDataValidator.*;
-import static com.javachallenge.fileapi.business.validation.FileDataValidator.ValidationResult.*;
+import static com.javachallenge.fileapi.validation.FileDataValidator.*;
+import static com.javachallenge.fileapi.validation.FileDataValidator.ValidationResult.*;
 
 public interface FileDataValidator extends BiFunction<Set<String>, MultipartFile, ValidationResult> {
 

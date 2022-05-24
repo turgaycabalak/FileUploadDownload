@@ -1,4 +1,4 @@
-package com.javachallenge.fileapi.business.validation;
+package com.javachallenge.fileapi.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

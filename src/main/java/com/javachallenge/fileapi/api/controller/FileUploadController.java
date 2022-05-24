@@ -1,7 +1,7 @@
 package com.javachallenge.fileapi.api.controller;
 
 import com.javachallenge.fileapi.business.FileService;
-import com.javachallenge.fileapi.business.validation.ValidateFile;
+import com.javachallenge.fileapi.validation.ValidateFile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

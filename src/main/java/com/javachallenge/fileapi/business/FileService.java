@@ -9,7 +9,7 @@ import com.javachallenge.fileapi.exceptions.FileProcessException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.core.io.ResourceLoader;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
@@ -32,8 +32,10 @@ public class FileService {
 
     private final FileRepository fileRepository;
     private final FileDataConverter fileDataConverter;
-    private final String FOLDER_PATH = System.getProperty("user.home") + "/Desktop/fileapi/src/main/resources/UploadedFiles";
-    private final String DELETED_FILES_PATH = System.getProperty("user.home") + "/Desktop/fileapi/src/main/resources/DeletedFiles";
+    @Value("${application.folder.path}")
+    private String folderPath;
+    @Value("${application.folder.deleted.path}")
+    private String deletedFilesFolderPath;
 
     @Transactional
     public void fileUpload(MultipartFile file) {
@@ -47,7 +49,7 @@ public class FileService {
         String fileName = FilenameUtils.getName(file.getOriginalFilename());
         String fileExtension = FilenameUtils.getExtension(file.getOriginalFilename());
         fileRepository.save(new FileData(
-                FOLDER_PATH,
+                folderPath,
                 file.getSize(),
                 (formattedDateTimeNow + fileName),
                 fileExtension
@@ -61,14 +63,15 @@ public class FileService {
     }
 
     public FileDataResponse getFileById(Long id) {
+        // fetch the fileData from DB
         FileData fileData = getFileData(id);
 
+        // fetch the File from Folder
         String filePath = fileData.getFilePath() + "/" + fileData.getFileName();
         File file = getFile(filePath);
 
         return fileDataConverter.convertToFileDataResponse(fileData, file);
     }
-
 
     @Transactional
     public void deleteFileById(Long fileId) {
@@ -105,17 +108,17 @@ public class FileService {
         fileRepository.save(fileData);
     }
 
+/////////////     PRIVATE METHODS     /////////////
     private File getFile(String filePath) {
         try {
-            return ResourceUtils.getFile(filePath);
+            return ResourceUtils.getFile(filePath);//return File
         } catch (FileNotFoundException e) {
-            throw new FileProcessException("An exception occurred during downloading file! Please try again.");
+            throw new com.javachallenge.fileapi.exceptions.FileNotFoundException("URL cannot be resolved to a file!");
         }
     }
-
     private FileData getFileData(Long id) {
         return fileRepository.findById(id)
-                .orElseThrow(() -> new com.javachallenge.fileapi.exceptions.FileNotFoundException("File not found!"));
+                .orElseThrow(() -> new com.javachallenge.fileapi.exceptions.FileNotFoundException("File not found in DB!"));
     }
 
     private void deleteFromFolder(FileData fileData){
@@ -123,7 +126,7 @@ public class FileService {
         try {
             FileUtils.moveFileToDirectory(
                     FileUtils.getFile(filePath),
-                    FileUtils.getFile(DELETED_FILES_PATH),
+                    FileUtils.getFile(deletedFilesFolderPath),
                     true
             );
         } catch (IOException e) {
@@ -133,17 +136,11 @@ public class FileService {
 
     private void addFileToFolder(MultipartFile file, String formattedDateTimeNow){
         try {
-            file.transferTo(new File(FOLDER_PATH + "/" + formattedDateTimeNow + file.getOriginalFilename()));
+            file.transferTo(new File(folderPath + "/" + formattedDateTimeNow + file.getOriginalFilename()));
         } catch (IOException e) {
             throw new FileProcessException("An exception occurred during uploading file! Please try again.");
         }
     }
-
-
-
-//    private boolean doesFileDataExist(Long id) {
-//        return fileRepository.existsById(id);
-//    }
 
 
 }

@@ -38,7 +38,7 @@ public class FileDataConverter {
                     FileUtils.readFileToByteArray(file)
             );
         } catch (IOException e) {
-            throw new FileProcessException("An exception occurred during downloading file! Please try again.");
+            throw new FileProcessException("File not found in folder!");
         }
     }
 

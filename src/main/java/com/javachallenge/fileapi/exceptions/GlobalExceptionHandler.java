@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Value(value = "${application.file.extensions}")
-    private final List<String> validExtensions;
+    private List<String> validExtensions;
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
