@@ -10,6 +10,9 @@
 They can upload or download any file with extension we specify. The file will be located on any path we specify on localhost. When they send any request to the deleting file endpoint, the file will be transfered any other folder which means the deleted files folder. So we need to specify it as well. Also we have a rdb which hold the information about file such as name, extension, size, path and an id given by db. Your CRUD operations will be executed on db and folder together. If any error occurres, a message will be sent to the client about the error.
 <hr>
 
+### Spring Security with JWT
+All endpoints are protected/private by Spring Security with JWT. User should register from the endpoit "/auth/signup" and then login through "/login". After successful login, a token will be taken from "header" with bearer. All request should send with this token. Otherwise endpoints will not be accessible. 
+
 ### Configurations
 # application.properties
 - DB
@@ -20,6 +23,34 @@ They can upload or download any file with extension we specify. The file will be
 <hr>
 
 ### Endpoints
+##### Sign Up
+```
+POST /auth/signup HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+Content-Length: 52
+
+{
+    "email": "example",
+    "password": "123456"
+}
+```
+<hr>
+
+##### Login
+```
+POST /login HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+Content-Length: 55
+
+{
+    "username": "example",
+    "password": "123456"
+}
+```
+<hr>
+
 ##### Upload File
 ```
 POST /files/upload HTTP/1.1
