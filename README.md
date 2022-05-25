@@ -11,7 +11,12 @@ They can upload or download any file with extension we specify. The file will be
 <hr>
 
 ### Configurations
-You can
+# application.properties
+- DB
+- File Upload Download Configurations (such as max file size)
+- Uploade Files Folder Path
+- Deleted Files Folder Path
+- Valid Extensions
 <hr>
 
 ### Endpoints
