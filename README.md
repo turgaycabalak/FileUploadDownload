@@ -11,7 +11,7 @@ They can upload or download any file with extension we specify. The file will be
 <hr>
 
 ### Spring Security with JWT
-All endpoints are protected/private by Spring Security with JWT. User should register from the endpoit "/auth/signup" and then login through "/login". After successful login, a token will be taken from "header" with bearer. All request should send with this token. Otherwise endpoints will not be accessible. 
+All endpoints are protected/private by Spring Security with JWT. User should register from the endpoit "/auth/signup" and then login through "/login". After successful login, a token will be taken from "header" with bearer. All request should send with this token inside header with name "Authorization" key. Otherwise endpoints will not be accessible. 
 
 ### Configurations
 # application.properties
@@ -55,6 +55,7 @@ Content-Length: 55
 ```
 POST /files/upload HTTP/1.1
 Host: localhost:8080
+Authorization: Barer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJheWF6IiwiQXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNjUzNDc2ODA0LCJleHAiOjE2NTM1OTg4MDB9.ONWqPioVW1n6uKmPKJgSkQQtFa71HUFCnBQc_H1lTH0bwfjq1-_Qxqn5QLS9dFSf_dumQk_8Z8Gcw7f2ysqaAA
 Content-Length: 264
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
@@ -71,13 +72,15 @@ Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.doc
 ```
 GET /files/getall?page=0&size=5 HTTP/1.1
 Host: localhost:8080
+Authorization: Barer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJheWF6IiwiQXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNjUzNDc2ODA0LCJleHAiOjE2NTM1OTg4MDB9.ONWqPioVW1n6uKmPKJgSkQQtFa71HUFCnBQc_H1lTH0bwfjq1-_Qxqn5QLS9dFSf_dumQk_8Z8Gcw7f2ysqaAA
 ```
 <hr>
 
 ##### Download File Informations By Id
 ```
-GET /files/download/8 HTTP/1.1
+GET /files/download/13 HTTP/1.1
 Host: localhost:8080
+Authorization: Barer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJheWF6IiwiQXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNjUzNDc2ODA0LCJleHAiOjE2NTM1OTg4MDB9.ONWqPioVW1n6uKmPKJgSkQQtFa71HUFCnBQc_H1lTH0bwfjq1-_Qxqn5QLS9dFSf_dumQk_8Z8Gcw7f2ysqaAA
 ```
 <hr>
 
@@ -85,6 +88,7 @@ Host: localhost:8080
 ```
 DELETE /files/delete/9 HTTP/1.1
 Host: localhost:8080
+Authorization: Barer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJheWF6IiwiQXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNjUzNDc2ODA0LCJleHAiOjE2NTM1OTg4MDB9.ONWqPioVW1n6uKmPKJgSkQQtFa71HUFCnBQc_H1lTH0bwfjq1-_Qxqn5QLS9dFSf_dumQk_8Z8Gcw7f2ysqaAA
 ```
 <hr>
 
@@ -92,6 +96,7 @@ Host: localhost:8080
 ```
 PUT /files/update/8 HTTP/1.1
 Host: localhost:8080
+Authorization: Barer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJheWF6IiwiQXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNjUzNDc2ODA0LCJleHAiOjE2NTM1OTg4MDB9.ONWqPioVW1n6uKmPKJgSkQQtFa71HUFCnBQc_H1lTH0bwfjq1-_Qxqn5QLS9dFSf_dumQk_8Z8Gcw7f2ysqaAA
 Content-Length: 205
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
